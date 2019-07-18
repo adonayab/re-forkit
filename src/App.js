@@ -5,16 +5,26 @@ import "./static/colors.css";
 import { Container, Grid, Divider } from "semantic-ui-react";
 
 class App extends Component {
+	state = {
+		recipes: []
+	};
+
+	searchRecipes = recipes => {
+		this.setState({
+			recipes
+		});
+	};
+
 	render() {
 		return (
 			<div className="App">
 				<Container>
 					<Divider hidden />
-					<SearchForm />
+					<SearchForm searchRecipes={this.searchRecipes} />
 					<Grid columns="equal">
 						<Grid.Row>
 							<Grid.Column>
-								<SearchResult />
+								<SearchResult recipes={this.state.recipes} />
 							</Grid.Column>
 							<Grid.Column width={8}>
 								<h5 className="center">Second</h5>

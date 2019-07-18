@@ -1,59 +1,36 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { key, proxy } from "../config";
+import { Feed } from "semantic-ui-react";
 
 class SearchResult extends Component {
-	state = {
-		posts: []
-	};
-
-	componentDidMount() {
-		const source = `${proxy}https://www.food2fork.com/api/search?key=${key}&q=
-					pasta`;
-		axios.get(source).then(res => {
-			console.log(res);
-
-			this.setState({
-				posts: res.data.recipes
-			});
-		});
-	}
-
 	render() {
-		const posts = this.state.posts;
-		const postList = posts.length ? (
-			posts.map(post => {
+		const { recipes } = this.props;
+		const recipeList = recipes.length ? (
+			recipes.map(recipe => {
 				return (
-					<div className="ui comments" key={post.recipe_id}>
-						<div className="comment">
-							<div className="avatar">
-								<img src={post.image_url} alt="IMG" />
-							</div>
-							<div className="content">
-								<a href="/" className="author">
-									{post.title}
-								</a>
-								<div className="metadata">
-									<span className="date" />
-								</div>
-								<div className="text" />
-								<div className="actions">
-									<a href="/" className="reply">
-										View
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					<Feed key={recipe.recipe_id}>
+						<Feed.Event>
+							<Feed.Label>
+								<img src={recipe.image_url} alt="IMG" />
+							</Feed.Label>
+							<Feed.Content>
+								<Feed.Summary>
+									<Feed.User>{recipe.title}</Feed.User>
+								</Feed.Summary>
+								<Feed.Meta>
+									<Feed.Like>View</Feed.Like>
+								</Feed.Meta>
+							</Feed.Content>
+						</Feed.Event>
+					</Feed>
 				);
 			})
 		) : (
-			<div className="center">No posts yet</div>
+			<div className="center">No recipes yet</div>
 		);
 		return (
 			<div className="container home">
 				<h4 className="center">Home</h4>
-				{postList}
+				{recipeList}
 			</div>
 		);
 	}
