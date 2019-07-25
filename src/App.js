@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import SearchResult from "./components/SearchResult";
 import SearchForm from "./components/SearchForm";
 import RecipeDetails from "./components/RecipeDetails";
+import NavBar from "./components/NavBar";
 import "./static/colors.css";
-import { Container, Grid, Divider } from "semantic-ui-react";
 
 class App extends Component {
 	state = {
@@ -26,30 +26,26 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Container>
-					<Divider hidden />
-					<SearchForm searchRecipes={this.searchRecipes} />
-					<Grid columns="equal">
-						<Grid.Row>
-							<Grid.Column>
-								<SearchResult
-									recipes={this.state.recipes}
-									searchSingleRecipe={this.searchSingleRecipe}
-								/>
-							</Grid.Column>
-							<Grid.Column width={8}>
-								<h5 className="center">Second</h5>
-								<RecipeDetails id={this.state.recipeId} />
-							</Grid.Column>
-							<Grid.Column>
-								<h5>Third</h5>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
-				</Container>
+				<NavBar />
+				<SearchForm searchRecipes={this.searchRecipes} />
+				<SearchResult
+					recipes={this.state.recipes}
+					searchSingleRecipe={this.searchSingleRecipe}
+				/>
 			</div>
 		);
 	}
 }
 
 export default App;
+
+/**
+ * <Grid columns="equal">
+						<Grid.Column width={8}>
+							<Item.Group />
+						</Grid.Column>
+						<Grid.Column width={8}>
+							<RecipeDetails id={this.state.recipeId} />
+						</Grid.Column>
+					</Grid>
+ */

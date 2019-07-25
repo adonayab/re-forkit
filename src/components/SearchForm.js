@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Form, Input, Button } from "semantic-ui-react";
 import axios from "axios";
 import { key, proxy } from "../config";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import {} from "@material-ui/core";
+import {} from "@material-ui/icons/Navigation";
+import FormGroup from "@material-ui/core/FormGroup";
 
 class SearchForm extends Component {
 	state = {
@@ -23,6 +27,8 @@ class SearchForm extends Component {
 			axios
 				.get(source)
 				.then(res => {
+					console.log(res);
+
 					this.setState({
 						...this.state,
 						recipes: res.data.recipes
@@ -36,18 +42,22 @@ class SearchForm extends Component {
 
 	render() {
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<Form.Group inline>
-					<Form.Field>
-						<Input
-							placeholder="Recipe name"
+			<div>
+				<form onSubmit={this.handleSubmit}>
+					<FormGroup row>
+						<TextField
+							style={{ padding: 24 }}
 							id="searchKey"
+							placeholder="Search Recipes"
+							margin="normal"
 							onChange={this.handleChange}
 						/>
-					</Form.Field>
-					<Button type="submit">Search</Button>
-				</Form.Group>
-			</Form>
+						<Button size="small" type="submit">
+							Search
+						</Button>
+					</FormGroup>
+				</form>
+			</div>
 		);
 	}
 }
